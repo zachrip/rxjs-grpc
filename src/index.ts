@@ -142,7 +142,6 @@ interface ClientMethod extends Function {
 
 function createClientMethod(grpcClient: DynamicMethods, name: string) {
   return function(...args: any[]) {
-    console.log('calling with', args);
     const clientMethod = grpcClient[name] as ClientMethod;
     
     return new Observable(observer => {

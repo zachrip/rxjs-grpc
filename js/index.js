@@ -177,7 +177,6 @@ function createClientMethod(grpcClient, name) {
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
-        console.log('calling with', args);
         var clientMethod = grpcClient[name];
         return new Observable_1.Observable(function (observer) {
             var handler = function (error, data) {
