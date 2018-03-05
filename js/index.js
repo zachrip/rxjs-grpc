@@ -88,6 +88,9 @@ function createMethod(rxImpl, name, serviceMethods) {
                                 call.on('data', function (data) {
                                     observer.next(data);
                                 });
+                                call.on('cancel', function () {
+                                    observer.error();
+                                });
                                 call.on('end', function () {
                                     observer.complete();
                                 });
@@ -104,30 +107,6 @@ function createMethod(rxImpl, name, serviceMethods) {
                         response.subscribe(function (data) { return callback(null, data); }, function (error) { return callback(error); });
                         _a.label = 3;
                     case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-}
-function createUnaryMethod(rxImpl, name) {
-    return function (call, callback) {
-        var response = rxImpl[name](call.request, call.metadata);
-        response.subscribe(function (data) { return callback(null, data); }, function (error) { return callback(error); });
-    };
-}
-function createStreamingMethod(rxImpl, name) {
-    return function (call, callback) {
-        return __awaiter(this, void 0, void 0, function () {
-            var response;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        response = rxImpl[name](call.request, call.metadata);
-                        return [4 /*yield*/, response.forEach(function (data) { return call.write(data); })];
-                    case 1:
-                        _a.sent();
-                        call.end();
-                        return [2 /*return*/];
                 }
             });
         });
