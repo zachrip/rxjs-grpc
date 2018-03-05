@@ -88,7 +88,7 @@ function createMethod(rxImpl, name, serviceMethods) {
                                 call.on('data', function (data) {
                                     observer.next(data);
                                 });
-                                call.on('cancel', function () {
+                                call.on('cancelled', function () {
                                     observer.error();
                                 });
                                 call.on('end', function () {

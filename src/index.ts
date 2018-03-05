@@ -57,7 +57,7 @@ function createMethod(rxImpl: DynamicMethods, name: string, serviceMethods: Dyna
           observer.next(data);
         });
 
-        call.on('cancel', () => {
+        call.on('cancelled', () => {
           observer.error();
         });
 
