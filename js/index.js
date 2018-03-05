@@ -204,7 +204,6 @@ function createClientMethod(grpcClient, name) {
             if (clientMethod.requestStream) {
                 var observable = args[0];
                 observable.subscribe(function (value) {
-                    console.log('writing', value);
                     call.write(value);
                 }, function (error) {
                     call.cancel();

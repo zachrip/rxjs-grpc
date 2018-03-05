@@ -172,7 +172,6 @@ function createClientMethod(grpcClient: DynamicMethods, name: string) {
         const observable: Observable<any> = args[0];
 
         observable.subscribe((value) => {
-          console.log('writing', value);
           call.write(value);
         }, (error) => {
           call.cancel();
