@@ -89,7 +89,7 @@ function createMethod(rxImpl, name, serviceMethods) {
                                     observer.next(data);
                                 });
                                 call.on('cancelled', function () {
-                                    observer.error();
+                                    observer.error(new Error("Call to \"" + name + "\" cancelled."));
                                 });
                                 call.on('end', function () {
                                     observer.complete();
