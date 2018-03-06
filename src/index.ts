@@ -57,12 +57,14 @@ function createMethod(rxImpl: DynamicMethods, name: string, serviceMethods: Dyna
           observer.next(data);
         });
 
-        call.on('cancelled', () => {
-          observer.error(new Error(`Call to "${name}" cancelled.`));
-        });
-
         call.on('end', () => {
-          observer.complete();
+          setImmediate(() => {
+            if (call.cancelled) {
+              observer.error(new Error(`Call to "${name}" cancelled.`));
+            } else {
+              observer.complete();
+            }
+          });
         });
       });
     }

@@ -88,11 +88,15 @@ function createMethod(rxImpl, name, serviceMethods) {
                                 call.on('data', function (data) {
                                     observer.next(data);
                                 });
-                                call.on('cancelled', function () {
-                                    observer.error(new Error("Call to \"" + name + "\" cancelled."));
-                                });
                                 call.on('end', function () {
-                                    observer.complete();
+                                    setImmediate(function () {
+                                        if (call.cancelled) {
+                                            observer.error(new Error("Call to \"" + name + "\" cancelled."));
+                                        }
+                                        else {
+                                            observer.complete();
+                                        }
+                                    });
                                 });
                             });
                         }
